@@ -60,7 +60,54 @@ VALUES
 ___________________________________________________________________________________________________________________________________________
 
 -------------------------------
-Fortune 500 Analysis- Queries
+FORTUNE 500 ANALYSIS- Queries
 -------------------------------
 
 
+-- How many employees work within each industry?
+SELECT industry, SUM(employees) AS totalEmployees
+FROM fortune_companies
+GROUP BY industry
+ORDER BY totalEmployees
+
+
+-- How many days of maternity leave does each company with healthcare benefits and less than 100,000 employees offer?
+SELECT company_name, (maternity_leave_weeks*7) AS maternityLeaveDays
+FROM fortune_companies
+WHERE healthcare_benefits = 1 AND employees < 100000
+ORDER BY maternityLeaveDays
+
+
+-- Which industries have an average employee tenure of 5 or more years?
+SELECT industry, ROUND(AVG(avg_employee_tenure), 1) AS avgIndustryTenure
+FROM fortune_companies
+GROUP BY industry
+HAVING avgIndustryTenure > 5
+ORDER BY avgIndustryTenure
+
+
+-- Including both maternity leave and paid time off, what is the maximum amount of time off comapnies without healthcare benefits offer new mothers? 
+SELECT company_name, ((maternity_leave_weeks*7) + paid_time_off_days) AS totalTimeOff
+FROM fortune_companies
+WHERE healthcare_benefits = 0
+ORDER BY totalTimeOff
+
+
+-- Which instustry has the most companies that offer healthcare benefits?
+SELECT industry, COUNT(healthcare_benefits) AS benefitsOffered
+FROM fortune_companies
+WHERE healthcare_benefits = 1
+GROUP BY industry
+ORDER BY benefitsOffered DESC
+LIMIT 1 
+
+
+-- Give each company a description based on the number of employees they have
+SELECT company_name, employees,
+CASE
+	WHEN employees >= 100000 THEN "Very Large Company"
+	WHEN employees >= 10000 THEN "Large Company"
+	WHEN employees >= 2500 THEN "Small Company"
+ELSE "Very Small Company"
+END AS companySize
+FROM fortune_companies
