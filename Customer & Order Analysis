@@ -1,4 +1,4 @@
-With these queries, I am querying a database with multiple tables in it to quantify statistics about customer and order data.
+With these queries, I am querying a database within a RDBMS with multiple tables to quantify statistics about customer and order data.
 _______________________________________________________________________________________________________________________________________________________
 
 /*How many many unique orders were placed in January?*/
