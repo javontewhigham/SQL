@@ -35,26 +35,22 @@ SUPERSTORE DATABASE- Queries
 -- Orders items by price
 SELECT item_name, price
 FROM superstore
-ORDER BY price
-;
+ORDER BY price;
 
 
 -- Performs aggregate functions on item prices
 SELECT MIN(price) AS minPrice, MAX(price) AS maxPrice
-FROM superstore
-;
+FROM superstore;
 
 
 -- Calculates the average cost of items from the Kitchen Supplies category
 SELECT AVG(price) AS avgCostKitchen
 FROM superstore
-WHERE category = "Kitchen Supplies"
-;
+WHERE category = "Kitchen Supplies";
 
 
 -- Calculates the average price of each category and lists them from largest to smallest
 SELECT category, AVG(price) AS avgPriceCategory
 FROM superstore
 GROUP BY category
-ORDER BY avgPriceCategory DESC
-;
+ORDER BY avgPriceCategory DESC;
