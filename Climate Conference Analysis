@@ -134,7 +134,7 @@ SELECT vips.first_name, vips.last_name
 FROM vips
 LEFT JOIN reservations
 ON vips.member_id = reservations.member_id
-WHERE reservations.welcome_rsvp = 1 AND reservations.dinner_rsvp = 1
+WHERE reservations.welcome_rsvp = 1 AND reservations.dinner_rsvp = 1;
 
 
 -- What association do the VIPs presenting on the panel (event type) belong to?
@@ -142,7 +142,7 @@ SELECT vips.first_name, vips.last_name, vips.association
 FROM vips
 INNER JOIN events
 ON vips.event = events.event_id
-WHERE events.event_type LIKE "Panel"
+WHERE events.event_type LIKE "Panel";
 
 
 -- Out of the VIPs atteding the Dinner RSVP party, at what hotel will each person be staying?
@@ -152,7 +152,7 @@ INNER JOIN reservations
 ON vips.member_id = reservations.member_id
 INNER JOIN hotels
 ON reservations.hotel = hotels.hotel_id
-WHERE reservations.dinner_rsvp = 1
+WHERE reservations.dinner_rsvp = 1;
 
 
 -- What is the name of the oldest member who did not receive a RSVP to the Welcome party?
@@ -166,11 +166,11 @@ WHERE vips.member_id IN (
 	WHERE reservations.welcome_rsvp = 0
 	)
 ORDER BY vips.member_since ASC
-LIMIT 1
+LIMIT 1;
 
 
 -- Give the names of everyone who will be providing feedback and to whom they are providing feedback for. 
 SELECT a.first_name AS feedbackFirst, a.last_name feedbackLast, b.first_name AS recipientFirst, b.last_name recipientLast
 FROM vips AS a
 JOIN vips AS b
-ON a.provides_feedback_to = b.member_id
+ON a.provides_feedback_to = b.member_id;
